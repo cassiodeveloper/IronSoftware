@@ -40,6 +40,19 @@ a{color:inherit; text-decoration:none;}
   border-bottom: 1px solid rgba(255,255,255,.06);
 }
 
+.hero-logo {
+  margin-bottom: 24px;
+}
+
+.hero-logo img {
+  height: 100px;
+  width: auto;
+  display: block;
+  max-width: 100%;
+  filter: drop-shadow(0 6px 20px rgba(212,175,55,.25));
+  transition: opacity .15s ease;
+}
+
 /* Top glow line */
 .topline{
   height: 4px;
@@ -55,11 +68,11 @@ a{color:inherit; text-decoration:none;}
   backdrop-filter: blur(10px);
   background: rgba(5,5,9,.60);
   border-bottom: 1px solid rgba(255,255,255,.06);
+  height: 100px;
 }
 .langbar-inner{
   max-width: var(--max);
   margin: 0 auto;
-  padding: 10px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;

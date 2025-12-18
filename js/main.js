@@ -125,6 +125,33 @@
   const langSwitch = document.getElementById("langSwitch");
   const langTag = document.getElementById("langTag");
 
+  function updateLogo(lang) {
+  const logo = document.getElementById("heroLogo");
+  const logo2 = document.getElementById("footerLogo");
+  
+  if (!logo) return;
+  if (!logo) return;
+
+  logo.style.opacity = 0;
+  logo2.style.opacity = 0;
+
+  setTimeout(() => {
+    if (lang === "en") {
+      logo.src = "img/logo-en.png";
+      logo.alt = "AppSec Iron Software";
+      logo2.src = "img/logo-en.png";
+      logo2.alt = "AppSec Iron Software";
+    } else {
+      logo.src = "img/logo-pt.png";
+      logo.alt = "AppSec Software de Ferro";
+      logo2.src = "img/logo-pt.png";
+      logo2.alt = "AppSec Software de Ferro";
+    }
+    logo.style.opacity = 1;
+    logo2.style.opacity = 1;
+  }, 120);
+}
+
   function setLang(lang){
     document.documentElement.lang = (lang === "en") ? "en" : "pt-BR";
     if(langTag) langTag.textContent = (lang === "en") ? "EN" : "PT";
@@ -138,6 +165,8 @@
     document.querySelectorAll('[data-pt-placeholder][data-en-placeholder]').forEach(el => {
       el.setAttribute('placeholder', (lang === 'en') ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-pt-placeholder'));
     });
+
+    updateLogo(lang);
 
     // select options
     document.querySelectorAll('select[data-pt-opts][data-en-opts]').forEach(sel => {
