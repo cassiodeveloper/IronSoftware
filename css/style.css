@@ -325,6 +325,29 @@ h1{
 }
 .chip b{color:var(--gold);}
 
+/* Currency toggle */
+.curtoggle{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; }
+.curtoggle[hidden]{ display:none; }
+.curlabel{ color:var(--muted); font-size:.9rem; }
+.curbtn{
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  font-family:inherit;
+  font-size:.9rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .12s ease, color .12s ease, border .12s ease;
+}
+.curbtn:hover{ background:rgba(255,255,255,.07); }
+.curbtn.is-active{
+  background:linear-gradient(90deg, var(--gold), #ffe9a6);
+  color:#1a1a1a;
+  border-color:transparent;
+}
+
 /* Timeline */
 .timeline{ margin-top: 22px; display:grid; gap: 12px; }
 .slot{

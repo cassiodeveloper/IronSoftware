@@ -11,21 +11,25 @@
 
   const PUBLIC_EVENT = {
     enabled: true,
-    startDate: "2026-03-31T09:00",
-    endDate: "2026-03-31T18:00",
+    startDate: "2026-10-31T09:00",
+    endDate: "2026-10-31T18:00",
     city_pt: "Cracóvia",
     city_en: "Krakow",
     countryCode: "PL",
-    checkoutUrl: "https://buy.stripe.com/28E14mgGx98F79NezLbsc0f",
+    checkoutUrl_pt: "https://buy.stripe.com/28E3cueypbgN8dRfDPbsc0j",
+    checkoutUrl_en: "https://buy.stripe.com/28E14mgGx98F79NezLbsc0f",
     price: "1490",
-    currency: "PLN"
+    currency_pt: "BRL",
+    currency_en: "PLN"
   };
 
   const INCOMPANY = {
     enabled: true,
     requestUrl: "https://cassiodeveloper.com.br/IronSoftware/#signup",
-    price: "14000",
-    currency: "PLN"
+    price_pt: "24900",
+    price_en: "21000",
+    currency_pt: "BRL",
+    currency_en: "PLN"
   };
 
   const PROVIDER = {
@@ -78,9 +82,9 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": PUBLIC_EVENT.checkoutUrl,
+          "url": isEN ? PUBLIC_EVENT.checkoutUrl_en : PUBLIC_EVENT.checkoutUrl_pt,
           "price": PUBLIC_EVENT.price,
-          "priceCurrency": PUBLIC_EVENT.currency,
+          "priceCurrency": isEN ? PUBLIC_EVENT.currency_en : PUBLIC_EVENT.currency_pt,
           "availability": "https://schema.org/InStock"
         }
       };
@@ -94,8 +98,8 @@
       offers.push({
         "@type": "Offer",
         "url": INCOMPANY.requestUrl,
-        "price": INCOMPANY.price,
-        "priceCurrency": INCOMPANY.currency,
+        "price": isEN ? INCOMPANY.price_en : INCOMPANY.price_pt,
+        "priceCurrency": isEN ? INCOMPANY.currency_en : INCOMPANY.currency_pt,
         "availability": "https://schema.org/InStock",
         "category": "CorporateTraining"
       });
@@ -166,6 +170,11 @@
       el.setAttribute('placeholder', (lang === 'en') ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-pt-placeholder'));
     });
 
+    // troca hrefs por idioma (checkout por moeda: PT=BRL, EN=PLN)
+    document.querySelectorAll('[data-pt-href][data-en-href]').forEach(el => {
+      el.setAttribute('href', (lang === 'en') ? el.getAttribute('data-en-href') : el.getAttribute('data-pt-href'));
+    });
+
     updateLogo(lang);
 
     // select options
@@ -187,9 +196,65 @@
     updateSeo(lang);
     updateJsonLd(lang);
 
+    // preços por moeda (BRL fixo em pt; PLN/EUR selecionável em en)
+    applyPricing();
+
     // persist
     try { localStorage.setItem('lang_pref', lang); } catch (e) {}
   }
+
+  // ----- Moeda -----
+  // pt-br sempre BRL. en-us usa a moeda escolhida (PLN padrao, EUR opcional).
+  let curEn = 'PLN';
+  try {
+    const savedCur = localStorage.getItem('cur_en');
+    if (savedCur === 'PLN' || savedCur === 'EUR') curEn = savedCur;
+  } catch (e) {}
+
+  function activeCurrency(){
+    return (document.documentElement.lang === 'en') ? curEn : 'BRL';
+  }
+
+  function applyPricing(){
+    const cur = activeCurrency();
+    const key = cur.toLowerCase();
+
+    // valores exibidos
+    document.querySelectorAll('[data-price-brl]').forEach(el => {
+      const v = el.getAttribute('data-price-' + key) || el.getAttribute('data-price-brl');
+      el.textContent = v;
+    });
+
+    // links de checkout; se a moeda ativa nao tem link, cai para contato (#signup)
+    // e o rotulo do botao troca: com link = "Comprar", sem link = "Solicitar proposta"
+    const isEN = document.documentElement.lang === 'en';
+    const lp = isEN ? 'en' : 'pt';
+    document.querySelectorAll('[data-href-brl]').forEach(el => {
+      const v = el.getAttribute('data-href-' + key);
+      const real = v && v.trim();
+      el.setAttribute('href', real ? v.trim() : '#signup');
+      const lbl = real ? el.getAttribute('data-buy-' + lp) : el.getAttribute('data-quote-' + lp);
+      if (lbl) el.innerHTML = lbl + ' <span class="arrow">&rarr;</span>';
+    });
+
+    // estado visual + visibilidade do toggle (so aparece em en)
+    document.querySelectorAll('#curToggle .curbtn').forEach(b => {
+      b.classList.toggle('is-active', b.getAttribute('data-cur') === curEn);
+    });
+    const tog = document.getElementById('curToggle');
+    if (tog) tog.hidden = (document.documentElement.lang !== 'en');
+  }
+
+  // clique no toggle de moeda
+  document.querySelectorAll('#curToggle .curbtn').forEach(b => {
+    b.addEventListener('click', () => {
+      const c = b.getAttribute('data-cur');
+      if (c !== 'PLN' && c !== 'EUR') return;
+      curEn = c;
+      try { localStorage.setItem('cur_en', c); } catch (e) {}
+      applyPricing();
+    });
+  });
 
   // switch event
   if(langSwitch){
