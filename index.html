@@ -616,18 +616,18 @@
 			</form>
 		</div>
 	</section>
-	<section class="ladder-next" aria-label="Próximo passo">
+	<section class="ladder-next" aria-label="next">
   <div class="ladder-next__inner">
-    <p class="ladder-next__kicker">Próximo passo</p>
+    <p class="ladder-next__kicker" data-pt="Próximo passo" data-en="What comes next">Próximo passo</p>
     <div class="ladder-next__cards">
       <a class="ladder-next__card ladder-next__card--primary" href="https://mariaappsec.com" data-ladder-from="capacitacao" data-ladder-to="recorrencia">
-        <span class="ladder-next__title">M.A.R.I.A.</span>
-        <span class="ladder-next__reason">Opere o que aprendeu todo dia: risco priorizado no seu CI.</span>
-        <span class="ladder-next__go">Levar para o dia a dia &rarr;</span>
+        <span class="ladder-next__title" data-pt="M.A.R.I.A." data-en="M.A.R.I.A.">M.A.R.I.A.</span>
+        <span class="ladder-next__reason" data-pt="Opere o que aprendeu todo dia: risco priorizado no seu CI." data-en="Operate what you learned every day: prioritized risk in your CI.">Opere o que aprendeu todo dia: risco priorizado no seu CI.</span>
+        <span class="ladder-next__go" data-pt="Levar para o dia a dia →" data-en="Take it to daily work →">Levar para o dia a dia →</span>
       </a>
       <a class="ladder-next__card" href="https://ava.cecyber.com/loja/appsec-devsecops/" data-ladder-from="capacitacao" data-ladder-to="educacao">
-        <span class="ladder-next__title">Pós em AppSec e DevSecOps</span>
-        <span class="ladder-next__reason">Quer profundidade de verdade? 360h, 9 módulos.</span>
+        <span class="ladder-next__title" data-pt="Pós em AppSec e DevSecOps" data-en="Postgrad in AppSec and DevSecOps">Pós em AppSec e DevSecOps</span>
+        <span class="ladder-next__reason" data-pt="Quer profundidade de verdade? 360h, 9 módulos." data-en="Want real depth? 360h, 9 modules.">Quer profundidade de verdade? 360h, 9 módulos.</span>
       </a>
     </div>
   </div>
@@ -650,11 +650,15 @@
 </style>
 
 <script>
-  document.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('.ladder-next__card');
-    if(!a||!window.gtag)return;
-    gtag('event','ladder_click',{from_step:a.getAttribute('data-ladder-from'),to_step:a.getAttribute('data-ladder-to'),link_url:a.href,source_page:location.pathname});
-  });
+(function(){
+  var root=document.documentElement;
+  function apply(){var pt=(root.getAttribute('lang')||'').toLowerCase().indexOf('pt')===0;
+    document.querySelectorAll('.ladder-next [data-pt][data-en]').forEach(function(el){el.textContent=pt?el.getAttribute('data-pt'):el.getAttribute('data-en');});}
+  apply();
+  try{new MutationObserver(apply).observe(root,{attributes:true,attributeFilter:['lang']});}catch(e){}
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.ladder-next__card');if(!a||!window.gtag)return;
+    gtag('event','ladder_click',{from_step:a.getAttribute('data-ladder-from'),to_step:a.getAttribute('data-ladder-to'),link_url:a.href,source_page:location.pathname});});
+})();
 </script>
 
 <footer>
