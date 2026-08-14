@@ -138,10 +138,10 @@
 			</div>
 			<div class="stat">
 			  <div>
-				<div class="label" data-pt="Público" data-en="Audience">Público</div>
-				<div class="value" data-pt="Devs / DevOps / AppSec" data-en="Devs / DevOps / AppSec">Devs / DevOps / AppSec</div>
+				<div class="label" data-pt="Para quem" data-en="Who it's for">Para quem</div>
+				<div class="value" data-pt="Devs, DevOps e AppSec" data-en="Devs, DevOps &amp; AppSec">Devs, DevOps e AppSec</div>
 			  </div>
-			  <div style="color:var(--blue);font-weight:900;" data-pt="Brasil / Portugal" data-en="EU">Brasil / Portugal</div>
+			  <div style="color:var(--blue);font-weight:900;" data-pt="Turmas na Europa &bull; Corporativo BR e EU" data-en="Public in Europe &bull; Corporate BR &amp; EU">Turmas na Europa &bull; Corporativo BR e EU</div>
 			</div>
 			<p class="mini" data-pt="Feito para times reais: exercícios práticos, estudos de caso e decisões críticas." data-en="Designed for real teams: practical exercises, case studies, and critical decisions.">Feito para times reais: exercícios práticos, estudos de caso e decisões críticas.
 			</p>
@@ -411,36 +411,46 @@
 			data-en="Pick your format. Public session with a fixed date and direct payment, or corporate delivery with a tailored proposal.">
 			Escolha o formato. Turma aberta com data definida e pagamento direto, ou corporativo sob demanda.
 			</p>
-			<div class="curtoggle" id="curToggle" hidden aria-label="Currency">
-				<span class="curlabel" data-pt="Moeda:" data-en="Currency:">Currency:</span>
+			<div class="pricegroup">
+			<h3 class="h3" style="margin:24px 0 4px;" data-pt="Turmas abertas &bull; Europa" data-en="Public classes &bull; Europe">Turmas abertas &bull; Europa</h3>
+			<p class="lead" style="margin:0 0 14px;" data-pt="Presencial em Crac&oacute;via, Pol&ocirc;nia. Vaga individual, pagamento direto em PLN ou EUR." data-en="In-person in Krak&oacute;w, Poland. Individual seat, direct payment in PLN or EUR.">Presencial em Crac&oacute;via, Pol&ocirc;nia. Vaga individual, pagamento direto em PLN ou EUR.</p>
+			<div class="curtoggle" id="curToggle" aria-label="Currency">
+				<span class="curlabel" data-pt="Moeda:" data-en="Currency:">Moeda:</span>
 				<button type="button" class="curbtn" data-cur="PLN">PLN</button>
 				<button type="button" class="curbtn" data-cur="EUR">EUR</button>
 			</div>
-			<div class="grid cols-3">
+			</div>
+			<div class="grid cols-2">
 				<div class="card">
 					<div class="chip" data-pt="<b>Turma aberta</b> &bull; Por pessoa" data-en="<b>Public class</b> &bull; Per seat"><b>Turma aberta</b> &bull; Por pessoa</div>
 					<div class="title" data-pt="Ingresso individual" data-en="Individual seat">Ingresso individual</div>
 					<p style="margin:8px 0 0;color:var(--muted);" data-pt="Data do pr&oacute;ximo treinamento:" data-en="Next training date:">Data do pr&oacute;ximo treinamento:</p>
-					<p style="margin:6px 0 8px;font-weight:900;color:#fff;" data-pt="31/10/2026 &bull; Crac&oacute;via, Pol&ocirc;nia" data-en="31/10/2026 &bull; Krak&oacute;w, Poland">31/10/2026 &bull; Crac&oacute;via, Pol&ocirc;nia</p>
+					<p style="margin:6px 0 8px;font-weight:900;color:#fff;" data-of="open:date">31/10/2026 &bull; Crac&oacute;via, Pol&ocirc;nia</p>
 					<p style="margin:0 0 12px;color:var(--muted);font-size:.92rem;" data-pt="Turma confirmada a partir de 8 inscritos. Reembolso integral se n&atilde;o confirmar." data-en="Class confirmed from 8 enrolments. Full refund if it doesn't confirm.">Turma confirmada a partir de 8 inscritos. Reembolso integral se n&atilde;o confirmar.</p>
 					<p style="margin:0 0 6px;color:var(--muted);" data-pt="Pre&ccedil;o por pessoa (8h):" data-en="Price per person (8h):">Pre&ccedil;o por pessoa (8h):</p>
-					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-price-brl="R$ 1.490" data-price-pln="PLN 1.490" data-price-eur="&euro; 690">R$ 1.490</p>
+					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-of="open:price">PLN 1.490</p>
 					<p style="margin:0 0 16px;color:var(--muted);" data-pt="Inclui materiais, templates, exerc&iacute;cios com MARIA e certificado." data-en="Includes materials, templates, MARIA hands-on and certificate.">Inclui materiais, templates, exerc&iacute;cios com MARIA e certificado.</p>
-					<a class="btn primary" href="https://buy.stripe.com/28E3cueypbgN8dRfDPbsc0j" data-href-brl="https://buy.stripe.com/28E3cueypbgN8dRfDPbsc0j" data-href-pln="https://buy.stripe.com/28E14mgGx98F79NezLbsc0f" data-href-eur="https://buy.stripe.com/bJe4gy0Hzfx379N0IVbsc0l" data-buy-pt="Comprar ingresso" data-buy-en="Buy ticket" data-quote-pt="Comprar ingresso" data-quote-en="Buy ticket">Comprar ingresso <span class="arrow">&rarr;</span></a>
+					<a class="btn primary" href="https://buy.stripe.com/28E14mgGx98F79NezLbsc0f" data-of="open:buy">Comprar ingresso <span class="arrow">&rarr;</span></a>
 					<p class="note" data-pt="Voc&ecirc; ser&aacute; levado a p&aacute;gina externa de checkout." data-en="You will be redirected to the checkout page.">Voc&ecirc; ser&aacute; levado a p&aacute;gina externa de checkout.</p>
 				</div>
 				<div class="card">
 					<div class="chip" data-pt="<b>Lote comunidade BSides</b> &bull; Vagas limitadas" data-en="<b>BSides community batch</b> &bull; Limited seats"><b>Lote comunidade BSides</b> &bull; Vagas limitadas</div>
 					<div class="title" data-pt="Ingresso individual" data-en="Individual seat">Ingresso individual</div>
 					<p style="margin:8px 0 0;color:var(--muted);" data-pt="Data do evento:" data-en="Event date:">Data do evento:</p>
-					<p style="margin:6px 0 8px;font-weight:900;color:#fff;" data-pt="25/09/2026 &bull; Crac&oacute;via, Pol&ocirc;nia" data-en="25/09/2026 &bull; Krak&oacute;w, Poland">25/09/2026 &bull; Crac&oacute;via, Pol&ocirc;nia</p>
+					<p style="margin:6px 0 8px;font-weight:900;color:#fff;" data-of="bsides:date">25/09/2026 &bull; Crac&oacute;via, Pol&ocirc;nia</p>
 					<p style="margin:0 0 12px;color:var(--muted);font-size:.92rem;" data-pt="Pre&ccedil;o de comunidade, exclusivo desta edi&ccedil;&atilde;o. Vagas contadas." data-en="Community price, exclusive to this edition. Seats are counted.">Pre&ccedil;o de comunidade, exclusivo desta edi&ccedil;&atilde;o. Vagas contadas.</p>
 					<p style="margin:0 0 6px;color:var(--muted);" data-pt="Pre&ccedil;o por pessoa (8h):" data-en="Price per person (8h):">Pre&ccedil;o por pessoa (8h):</p>
-					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-price-brl="R$ 399" data-price-pln="PLN 399" data-price-eur="&euro; 149">R$ 399</p>
+					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-of="bsides:price">PLN 399</p>
 					<p style="margin:0 0 16px;color:var(--muted);" data-pt="Inclui materiais e certificado. Sem suporte p&oacute;s-turma." data-en="Includes materials and certificate. No post-class support.">Inclui materiais e certificado. Sem suporte p&oacute;s-turma.</p>
-					<a class="btn primary" href="https://buy.stripe.com/cNicN4dulbgN2Tx8bnbsc0k" data-href-brl="https://buy.stripe.com/cNicN4dulbgN2Tx8bnbsc0k" data-href-pln="https://buy.stripe.com/4gM4gyai94Sp2Tx63fbsc0i" data-href-eur="https://buy.stripe.com/dRmdR8gGx5Wt1Ptajvbsc0p" data-buy-pt="Comprar ingresso" data-buy-en="Buy ticket" data-quote-pt="Comprar ingresso" data-quote-en="Buy ticket">Comprar ingresso <span class="arrow">&rarr;</span></a>
+					<a class="btn primary" href="https://buy.stripe.com/4gM4gyai94Sp2Tx63fbsc0i" data-of="bsides:buy">Comprar ingresso <span class="arrow">&rarr;</span></a>
 					<p class="note" data-pt="Voc&ecirc; ser&aacute; levado a p&aacute;gina externa de checkout." data-en="You will be redirected to the checkout page.">Voc&ecirc; ser&aacute; levado a p&aacute;gina externa de checkout.</p>
 				</div>
+				</div>
+			<div class="pricegroup">
+			<h3 class="h3" style="margin:40px 0 4px;" data-pt="Para empresas &bull; Brasil e Europa" data-en="For companies &bull; Brazil &amp; Europe">Para empresas &bull; Brasil e Europa</h3>
+			<p class="lead" style="margin:0 0 14px;" data-pt="Turma fechada no seu ambiente, na sua data, em qualquer mercado. Pre&ccedil;o no seu mercado: R$, &euro; ou PLN." data-en="Private class at your site, on your date, in any market. Priced in your market: R$, &euro; or PLN.">Turma fechada no seu ambiente, na sua data, em qualquer mercado. Pre&ccedil;o no seu mercado: R$, &euro; ou PLN.</p>
+			</div>
+			<div class="grid cols-3">
 				<div class="card">
 					<div class="chip" data-pt="<b>Corporativo</b> &bull; In-company" data-en="<b>Corporate</b> &bull; In-company"><b>Corporativo</b> &bull; In-company</div>
 					<div class="title" data-pt="Turma fechada &bull; 8h" data-en="Private class &bull; 8h">Turma fechada &bull; 8h</div>
@@ -448,7 +458,7 @@
 					<p style="margin:6px 0 8px;font-weight:900;color:#fff;" data-pt="Sob demanda &bull; no seu ambiente" data-en="On demand &bull; at your site">Sob demanda &bull; no seu ambiente</p>
 					<p style="margin:0 0 12px;color:var(--muted);font-size:.92rem;" data-pt="At&eacute; 12 pessoas. Exerc&iacute;cios com o seu c&oacute;digo." data-en="Up to 12 people. Exercises on your own code.">At&eacute; 12 pessoas. Exerc&iacute;cios com o seu c&oacute;digo.</p>
 					<p style="margin:0 0 6px;color:var(--muted);" data-pt="Pre&ccedil;o por turma (8h):" data-en="Price per group (8h):">Pre&ccedil;o por turma (8h):</p>
-					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-price-brl="R$ 24.900" data-price-pln="PLN 21.000" data-price-eur="&euro; 4.900">R$ 24.900</p>
+					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-of="corp8:price">R$ 24.900</p>
 					<p style="margin:0 0 16px;color:var(--muted);" data-pt="Pessoa adicional sob consulta (at&eacute; 20)." data-en="Additional seat on request (up to 20).">Pessoa adicional sob consulta (at&eacute; 20).</p>
 					<a class="btn primary" href="#signup" data-pt="Solicitar proposta &rarr;" data-en="Request a quote &rarr;">Solicitar proposta <span class="arrow">&rarr;</span></a>
 					<p class="note" data-pt="Informe data de prefer&ecirc;ncia e n&uacute;mero de pessoas." data-en="Tell me your preferred date and headcount.">Informe data de prefer&ecirc;ncia e n&uacute;mero de pessoas.</p>
@@ -460,7 +470,7 @@
 					<p style="margin:6px 0 8px;font-weight:900;color:#fff;" data-pt="Sob demanda &bull; no seu ambiente" data-en="On demand &bull; at your site">Sob demanda &bull; no seu ambiente</p>
 					<p style="margin:0 0 12px;color:var(--muted);font-size:.92rem;" data-pt="At&eacute; 12 pessoas. Segundo dia aplicado no c&oacute;digo real do time." data-en="Up to 12 people. Second day applied to the team's real code.">At&eacute; 12 pessoas. Segundo dia aplicado no c&oacute;digo real do time.</p>
 					<p style="margin:0 0 6px;color:var(--muted);" data-pt="Pre&ccedil;o por turma (16h):" data-en="Price per group (16h):">Pre&ccedil;o por turma (16h):</p>
-					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-price-brl="R$ 42.900" data-price-pln="PLN 36.000" data-price-eur="&euro; 8.400">R$ 42.900</p>
+					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-of="corp16:price">R$ 42.900</p>
 					<p style="margin:0 0 16px;color:var(--muted);" data-pt="Pessoa adicional sob consulta (at&eacute; 20)." data-en="Additional seat on request (up to 20).">Pessoa adicional sob consulta (at&eacute; 20).</p>
 					<a class="btn primary" href="#signup" data-pt="Solicitar proposta &rarr;" data-en="Request a quote &rarr;">Solicitar proposta <span class="arrow">&rarr;</span></a>
 					<p class="note" data-pt="Informe data de prefer&ecirc;ncia e n&uacute;mero de pessoas." data-en="Tell me your preferred date and headcount.">Informe data de prefer&ecirc;ncia e n&uacute;mero de pessoas.</p>
@@ -473,7 +483,7 @@
 					<p style="margin:0 0 12px;color:var(--muted);font-size:.92rem;" data-pt="Sai da sala com o MARIA medindo risco no seu pipeline." data-en="Leave the room with MARIA scoring risk in your pipeline.">Sai da sala com o MARIA medindo risco no seu pipeline.</p>
 						<p style="margin:0 0 12px;"><a href="https://mariaappsec.com" target="_blank" rel="noopener noreferrer" style="color:var(--gold);font-size:.92rem;font-weight:700;text-decoration:none;" data-pt="Conhe&ccedil;a o MARIA &rarr;" data-en="Meet MARIA &rarr;">Conhe&ccedil;a o MARIA &rarr;</a></p>
 					<p style="margin:0 0 6px;color:var(--muted);" data-pt="Pre&ccedil;o do pacote:" data-en="Package price:">Pre&ccedil;o do pacote:</p>
-					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-price-brl="R$ 46.900" data-price-pln="PLN 42.500" data-price-eur="&euro; 9.900">R$ 46.900</p>
+					<p class="price" style="margin:0 0 18px;font-size:1.8rem;font-weight:900;color:var(--gold);" data-of="premium:price">R$ 46.900</p>
 					<p style="margin:0 0 16px;color:var(--muted);" data-pt="Treinamento, configura&ccedil;&atilde;o do MARIA e acompanhamento de 30 dias." data-en="Training, MARIA setup and 30-day follow-up.">Treinamento, configura&ccedil;&atilde;o do MARIA e acompanhamento de 30 dias.</p>
 					<a class="btn primary" href="#signup" data-pt="Solicitar proposta &rarr;" data-en="Request a quote &rarr;">Solicitar proposta <span class="arrow">&rarr;</span></a>
 					<p class="note" data-pt="Ideal para times que j&aacute; rodam CI e querem risco medido continuamente." data-en="For teams already running CI that want risk measured continuously.">Ideal para times que j&aacute; rodam CI e querem risco medido continuamente.</p>

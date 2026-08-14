@@ -9,28 +9,38 @@
     }
   };
 
-  const PUBLIC_EVENT = {
-    enabled: true,
-    startDate: "2026-10-31T09:00",
-    endDate: "2026-10-31T18:00",
-    city_pt: "Cracóvia",
-    city_en: "Krakow",
-    countryCode: "PL",
-    checkoutUrl_pt: "https://buy.stripe.com/28E3cueypbgN8dRfDPbsc0j",
-    checkoutUrl_en: "https://buy.stripe.com/28E14mgGx98F79NezLbsc0f",
-    price: "1490",
-    currency_pt: "BRL",
-    currency_en: "PLN"
+  // ===== FONTE UNICA de precos, datas e links. Edite SO aqui. =====
+  // kind "eu": turma fisica na Europa, so PLN/EUR (sem BRL).
+  // kind "market": corporativo entregue no pais do cliente, BRL/EUR/PLN.
+  // Regra: PLN e EUR sao valores de mercado distintos, nao conversao um do outro.
+  const OFFERS = {
+    open: {
+      kind: "eu",
+      startDate: "2026-10-31T09:00", endDate: "2026-10-31T18:00",
+      city: { pt: "Cracóvia", en: "Krakow" }, country: "PL",
+      date: { pt: "31/10/2026 &bull; Crac&oacute;via, Pol&ocirc;nia", en: "31/10/2026 &bull; Krak&oacute;w, Poland" },
+      amount: { PLN: 1490, EUR: 690 },
+      link: { PLN: "https://buy.stripe.com/28E14mgGx98F79NezLbsc0f", EUR: "https://buy.stripe.com/bJe4gy0Hzfx379N0IVbsc0l" }
+    },
+    bsides: {
+      kind: "eu",
+      startDate: "2026-09-25T09:00", endDate: "2026-09-25T18:00",
+      city: { pt: "Cracóvia", en: "Krakow" }, country: "PL",
+      date: { pt: "25/09/2026 &bull; Crac&oacute;via, Pol&ocirc;nia", en: "25/09/2026 &bull; Krak&oacute;w, Poland" },
+      amount: { PLN: 399, EUR: 149 },
+      link: { PLN: "https://buy.stripe.com/4gM4gyai94Sp2Tx63fbsc0i", EUR: "https://buy.stripe.com/dRmdR8gGx5Wt1Ptajvbsc0p" }
+    },
+    corp8:   { kind: "market", amount: { BRL: 24900, EUR: 4900, PLN: 21000 } },
+    corp16:  { kind: "market", amount: { BRL: 42900, EUR: 8400, PLN: 36000 } },
+    premium: { kind: "market", amount: { BRL: 46900, EUR: 9900, PLN: 42500 } }
   };
 
-  const INCOMPANY = {
-    enabled: true,
-    requestUrl: "https://cassiodeveloper.com.br/IronSoftware/#signup",
-    price_pt: "24900",
-    price_en: "21000",
-    currency_pt: "BRL",
-    currency_en: "PLN"
-  };
+  function fmtMoney(cur, n){
+    var s = Number(n).toLocaleString("de-DE");
+    if (cur === "BRL") return "R$ " + s;
+    if (cur === "EUR") return "€ " + s;
+    return "PLN " + s;
+  }
 
   const PROVIDER = {
     "@type": "Person",
@@ -64,50 +74,41 @@
       "provider": PROVIDER
     };
 
-    // Turma aberta com data (CourseInstance + Offer)
-    if (PUBLIC_EVENT.enabled) {
-      course.hasCourseInstance = {
-        "@type": "CourseInstance",
-        "courseMode": "Onsite",
-        "startDate": PUBLIC_EVENT.startDate,
-        "endDate": PUBLIC_EVENT.endDate,
-        "location": {
-          "@type": "Place",
-          "name": isEN ? PUBLIC_EVENT.city_en : PUBLIC_EVENT.city_pt,
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": isEN ? PUBLIC_EVENT.city_en : PUBLIC_EVENT.city_pt,
-            "addressCountry": PUBLIC_EVENT.countryCode
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": isEN ? PUBLIC_EVENT.checkoutUrl_en : PUBLIC_EVENT.checkoutUrl_pt,
-          "price": PUBLIC_EVENT.price,
-          "priceCurrency": isEN ? PUBLIC_EVENT.currency_en : PUBLIC_EVENT.currency_pt,
-          "availability": "https://schema.org/InStock"
+    // Turma aberta em Cracovia: preco de mercado europeu (EUR) no schema.
+    const open = OFFERS.open;
+    course.hasCourseInstance = {
+      "@type": "CourseInstance",
+      "courseMode": "Onsite",
+      "startDate": open.startDate,
+      "endDate": open.endDate,
+      "location": {
+        "@type": "Place",
+        "name": isEN ? open.city.en : open.city.pt,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": isEN ? open.city.en : open.city.pt,
+          "addressCountry": open.country
         }
-      };
-    }
-
-    // In-company (Offer separado)
-    // Como JSON-LD é um objeto só aqui, vamos anexar "offers" adicionais via array
-    const offers = [];
-
-    if (INCOMPANY.enabled) {
-      offers.push({
+      },
+      "offers": {
         "@type": "Offer",
-        "url": INCOMPANY.requestUrl,
-        "price": isEN ? INCOMPANY.price_en : INCOMPANY.price_pt,
-        "priceCurrency": isEN ? INCOMPANY.currency_en : INCOMPANY.currency_pt,
-        "availability": "https://schema.org/InStock",
-        "category": "CorporateTraining"
-      });
-    }
+        "url": open.link.EUR,
+        "price": String(open.amount.EUR),
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock"
+      }
+    };
 
-    // Se já existe oferta de turma aberta dentro do CourseInstance, tudo bem.
-    // Aqui adicionamos ofertas gerais do curso (ex: in-company).
-    if (offers.length) course.offers = offers;
+    // In-company: preco no mercado do idioma (BRL no PT, EUR no EN).
+    const corpCur = isEN ? "EUR" : "BRL";
+    course.offers = [{
+      "@type": "Offer",
+      "url": "https://cassiodeveloper.com.br/IronSoftware/#signup",
+      "price": String(OFFERS.corp8.amount[corpCur]),
+      "priceCurrency": corpCur,
+      "availability": "https://schema.org/InStock",
+      "category": "CorporateTraining"
+    }];
 
     return course;
   }
@@ -203,54 +204,52 @@
     try { localStorage.setItem('lang_pref', lang); } catch (e) {}
   }
 
-  // ----- Moeda -----
-  // pt-br sempre BRL. en-us usa a moeda escolhida (PLN padrao, EUR opcional).
-  let curEn = 'PLN';
-  try {
-    const savedCur = localStorage.getItem('cur_en');
-    if (savedCur === 'PLN' || savedCur === 'EUR') curEn = savedCur;
-  } catch (e) {}
+  // ----- Moeda / render das ofertas (fonte unica: OFFERS) -----
+  // Turmas europeias (kind "eu"): sempre PLN/EUR. Corporativo (kind "market"): PT=BRL, EN=euCur.
+  let euCur = 'PLN';
+  try { var savedCur = localStorage.getItem('cur_en'); if (savedCur === 'PLN' || savedCur === 'EUR') euCur = savedCur; } catch (e) {}
 
-  function activeCurrency(){
-    return (document.documentElement.lang === 'en') ? curEn : 'BRL';
+  function curFor(kind){
+    if (kind === 'eu') return euCur;
+    return (document.documentElement.lang === 'en') ? euCur : 'BRL';
   }
 
   function applyPricing(){
-    const cur = activeCurrency();
-    const key = cur.toLowerCase();
-
-    // valores exibidos
-    document.querySelectorAll('[data-price-brl]').forEach(el => {
-      const v = el.getAttribute('data-price-' + key) || el.getAttribute('data-price-brl');
-      el.textContent = v;
+    var isEN = document.documentElement.lang === 'en';
+    document.querySelectorAll('[data-of]').forEach(function(el){
+      var parts = (el.getAttribute('data-of') || '').split(':');
+      var o = OFFERS[parts[0]];
+      if (!o) return;
+      var field = parts[1];
+      var cur = curFor(o.kind);
+      if (field === 'date' && o.date) {
+        el.innerHTML = isEN ? o.date.en : o.date.pt;
+      } else if (field === 'price') {
+        var amt = (o.amount[cur] != null) ? o.amount[cur] : o.amount.EUR;
+        el.innerHTML = fmtMoney(cur, amt);
+      } else if (field === 'buy') {
+        var href = o.link && o.link[cur];
+        if (href) {
+          el.setAttribute('href', href);
+          el.innerHTML = (isEN ? 'Buy ticket' : 'Comprar ingresso') + ' <span class="arrow">&rarr;</span>';
+        } else {
+          el.setAttribute('href', '#signup');
+          el.innerHTML = (isEN ? 'Request a quote' : 'Solicitar proposta') + ' <span class="arrow">&rarr;</span>';
+        }
+      }
     });
-
-    // links de checkout; se a moeda ativa nao tem link, cai para contato (#signup)
-    // e o rotulo do botao troca: com link = "Comprar", sem link = "Solicitar proposta"
-    const isEN = document.documentElement.lang === 'en';
-    const lp = isEN ? 'en' : 'pt';
-    document.querySelectorAll('[data-href-brl]').forEach(el => {
-      const v = el.getAttribute('data-href-' + key);
-      const real = v && v.trim();
-      el.setAttribute('href', real ? v.trim() : '#signup');
-      const lbl = real ? el.getAttribute('data-buy-' + lp) : el.getAttribute('data-quote-' + lp);
-      if (lbl) el.innerHTML = lbl + ' <span class="arrow">&rarr;</span>';
+    document.querySelectorAll('#curToggle .curbtn').forEach(function(b){
+      b.classList.toggle('is-active', b.getAttribute('data-cur') === euCur);
     });
-
-    // estado visual + visibilidade do toggle (so aparece em en)
-    document.querySelectorAll('#curToggle .curbtn').forEach(b => {
-      b.classList.toggle('is-active', b.getAttribute('data-cur') === curEn);
-    });
-    const tog = document.getElementById('curToggle');
-    if (tog) tog.hidden = (document.documentElement.lang !== 'en');
+    var tog = document.getElementById('curToggle');
+    if (tog) tog.hidden = false; // sempre visivel: turmas europeias usam PLN/EUR nos dois idiomas
   }
 
-  // clique no toggle de moeda
-  document.querySelectorAll('#curToggle .curbtn').forEach(b => {
-    b.addEventListener('click', () => {
-      const c = b.getAttribute('data-cur');
+  document.querySelectorAll('#curToggle .curbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var c = b.getAttribute('data-cur');
       if (c !== 'PLN' && c !== 'EUR') return;
-      curEn = c;
+      euCur = c;
       try { localStorage.setItem('cur_en', c); } catch (e) {}
       applyPricing();
     });
